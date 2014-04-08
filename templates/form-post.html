@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}{{ p.title }}{% endblock %}
+{% block body %}
+	<form method=post>
+		<div class=form-group>
+			<input {% if p %}disabled{% endif %} name=url_id placeholder="URL name" type=text class=form-control value="{{ p.key.id() }}" required>
+		</div>
+		<div class=form-group>
+			<textarea id=body name=body placeholder="Body (Markdown)" rows=20 class=form-control required>{{ p.body }}</textarea> 
+		</div>
+		<div class=form-group>
+			<button type=submit class="btn btn-success">Save</button>
+		</div>
+	</form>
+{% endblock %}
