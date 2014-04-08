@@ -42,7 +42,7 @@ def home_page():
     return render_template('post.html', p=p)
 
 
-@app.route('/read/<key_name>')
+@app.route('/<key_name>')
 def view_post(key_name):
     p = Post.get_by_id(key_name)
     return render_template('post.html', p=p)
@@ -65,20 +65,7 @@ def add_post():
     p.put()
     flash('successfuly saved')
 
-    return redirect(url_for('edit_post', key_name=p.key.id()))
-
-
-@app.route('/edit/<key_name>', methods=['GET', 'POST'])
-def edit_post(key_name):
-    p = Post.get_by_id(key_name)
-    if request.method == 'GET':
-        return render_template('form-post.html', p=p)
-
-    p.body  = request.form['body']
-    p.put()
-    flash('successfuly changed')
-
-    return redirect(url_for('view_post', key_name=key_name))
+    return redirect(url_for('view_post', key_name=p.key.id()))
 
 
 # Utils :1
