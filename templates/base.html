@@ -10,10 +10,20 @@
 	<script src="{{ 'html5shiv.js' | static_url }}"></script>
 	<script src="{{ 'respond.js' | static_url }}"></script>
 <![endif]-->
-<body>
-	<div class=container>
-		{% block body %}{% endblock %}
+{% with messages=get_flashed_messages(with_categories=true) %}
+	{% if messages %}
+	<div class=flashed-message>
+		{% for category, message in messages %}
+		<div class="alert alert-warning alert-disssbale">
+			<button type=button class=close data-dismiss=alert aria-hidden=true>&times;</button>
+			<strong>{{ category }}</strong> {{ message }}
+		</div>
+		{% endfor %}
 	</div>
-	<script src="{{ 'jquery.js' | static_url }}"></script>
-	<script src="{{ 'bootstrap.js' | static_url }}"></script>
-</body>
+	{% endif %}
+{% endwith %}
+<div class=container>
+	{% block body %}{% endblock %}
+</div>
+<script src="{{ 'jquery.js' | static_url }}"></script>
+<script src="{{ 'bootstrap.js' | static_url }}"></script>

@@ -1,2 +1,8 @@
 {% extends "base.html" %}
-{% block body %}{{ p.body | to_html }}{% endblock %}
+{% block body %}
+{% if p %}
+	{{ p.body | to_html }}
+{% else %}
+	<h2> There is nothing to show you! </h2>
+{% endif %}
+{% endblock %}

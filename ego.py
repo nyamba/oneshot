@@ -24,9 +24,24 @@ app.config.from_object(__name__)
 # Model :1
 class Post(ndb.Model):
     body  = ndb.TextProperty()
+    created_date = ndb.DateProperty(auto_now_add=True)
+
+    @property
+    def key_name(self):
+        return self.key.id()
 
 
 # Views :1
+@app.route('/')
+def home_page():
+    p = Post.query().order(-Post.created_date).fetch(1)
+    if p:
+        p = p[0]
+    else:
+        p = None
+    return render_template('post.html', p=p)
+
+
 @app.route('/read/<key_name>')
 def view_post(key_name):
     p = Post.get_by_id(key_name)
@@ -40,12 +55,13 @@ def add_post():
 
     url_id = request.form['url_id']
     body   = request.form['body']
-    p = Post(id=url_id, body=body)
     pe = Post.get_by_id(url_id)
     if pe:
         flash('Already existed for that url id')
+        p = Post(id=url_id, body=body)
         return render_template('form-post.html', p=p)
 
+    p = Post(id=url_id, body=body)
     p.put()
     flash('successfuly saved')
 
@@ -69,12 +85,18 @@ def edit_post(key_name):
 def static_url(name):
     production_cdn = {
             'bootstrap.js':  '//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js',
+            'html5shiv.js':  'https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js',
+            'respond.js':  'https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js',
+            'jquery.js':  'https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js',
+
             'bootstrap.css': '//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css',
+            'normalize.css': '//localhost:7000/css/normalize.css',
             }
 
     local_cdn = {
             'bootstrap.css': '//localhost:7000/css/bootstrap.min.css',
             'normalize.css': '//localhost:7000/css/normalize.css',
+
             'bootstrap.js':  '//localhost:7000/js/bootstrap.min.js',
             'html5shiv.js':  '//localhost:7000/js/html5shiv.js',
             'respond.js':  '//localhost:7000/js/respond.min.js',
