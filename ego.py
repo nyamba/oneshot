@@ -1,8 +1,8 @@
 # coding: utf-8 
-# vim:fdm=marker:fmr=\:,\:
+# vim:fdm=marker:fmr={,}
 # required python packages: flask, markdown
 
-import sys, os.path #:1
+import sys, os.path #{1
 import logging, json
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'lib'))
 
@@ -21,7 +21,7 @@ SECRET_KEY = 'EGO03043'
 app = Flask(__name__)
 app.config.from_object(__name__)
 
-# Model :1
+# Model {1
 class Post(ndb.Model):
     body  = ndb.TextProperty()
     created_date = ndb.DateProperty(auto_now_add=True)
@@ -31,7 +31,7 @@ class Post(ndb.Model):
         return self.key.id()
 
 
-# Views :1
+# Views {1
 @app.route('/')
 def home_page():
     p = Post.query().order(-Post.created_date).fetch(1)
@@ -45,13 +45,17 @@ def home_page():
 @app.route('/<key_name>')
 def view_post(key_name):
     p = Post.get_by_id(key_name)
+    if p is None:
+        return redirect('%s?name=%s' % (url_for('add_post'), key_name))
+
     return render_template('post.html', p=p)
 
 
 @app.route('/add', methods=['GET', 'POST'])
 def add_post():
     if request.method == 'GET':
-        return render_template('form-post.html', p=None)
+        return render_template('form-post.html', p=None,
+                name=request.args.get('name', None))
 
     url_id = request.form['url_id']
     body   = request.form['body']
@@ -68,7 +72,7 @@ def add_post():
     return redirect(url_for('view_post', key_name=p.key.id()))
 
 
-# Utils :1
+# Utils {1
 def static_url(name):
     production_cdn = {
             'bootstrap.js':  '//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js',
