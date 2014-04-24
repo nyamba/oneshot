@@ -1,5 +1,4 @@
 body {
-  margin-top: 60px;
   font-size: 21px;
   text-align: justify;
 }
@@ -8,4 +7,21 @@ h1 {
   border-bottom: 6px solid #555;
   padding-bottom: 20px;
   margin-bottom: 40px;
+}
+
+form {
+  padding-top: 60px;
+}
+
+.body-container, html, body, form, .container {
+  height: 100%;
+}
+
+#post-body {
+  border: none;
+  outline: none;
+  font-size: 21px;
+  height: 93%;
+  line-height: 1.2em;
+  box-shadow: none;
 }

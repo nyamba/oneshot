@@ -2,14 +2,14 @@
 {% block title %}{{ p.title }}{% endblock %}
 {% block body %}
 	<form method=post>
-		<div class=form-group>
-			<input {% if p %}disabled{% endif %} name=url_id placeholder="URL name" type=text class=form-control value="{{ p.key_name }}" required>
+		<div class="input-group form-group">
+			<input {% if p %}disabled{% endif %} spellcheck=false name=url_id placeholder="URL name" type=text class=form-control value="{{ p.key_name }}" required>
+			<span class=input-group-btn>
+				<button type=submit class="btn btn-default"><span class="glyphicon glyphicon-circle-arrow-up"></span></button>
+			</span>
 		</div>
-		<div class=form-group>
-			<textarea name=body placeholder="Body (Markdown)" rows=20 class=form-control required>{{ p.body }}</textarea> 
-		</div>
-		<div class=form-group>
-			<button type=submit class="btn btn-success">Save</button>
+		<div class=body-container>
+			<textarea spellcheck=false id=post-body name=body placeholder="(Markdown)" class=form-control required>{{ p.body }}</textarea> 
 		</div>
 	</form>
 {% endblock %}
