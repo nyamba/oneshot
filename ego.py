@@ -37,9 +37,9 @@ def home_page():
     p = Post.query().order(-Post.created_date).fetch(1)
     if p:
         p = p[0]
+        return render_template('post.html', p=p)
     else:
-        p = None
-    return render_template('post.html', p=p)
+        return 'Empty, means the end or beginning'
 
 
 @app.route('/<key_name>')
