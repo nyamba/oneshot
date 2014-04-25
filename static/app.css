@@ -17,6 +17,13 @@ form {
   height: 100%;
 }
 
+img {
+  float: left;
+  margin-right: 20px;
+  border-radius: 5px;
+  max-width: 250px;
+}
+
 #post-body {
   border: none;
   outline: none;
@@ -24,4 +31,9 @@ form {
   height: 93%;
   line-height: 1.2em;
   box-shadow: none;
+}
+
+em {
+  font-weight: 100;
+  color: #aaa;
 }
