@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% block title %}{{ p.key_name or name }}{% endblock %}
 {% block body %}
 	<form method=post>
 		<div class="input-group form-group">
@@ -12,7 +13,7 @@
 		<div class=body-container>
 			<textarea spellcheck=false id=post-body name=body
 				placeholder="You only have one chance, so try to make perfect one! (Markdown syntax supported)" 
-				class=form-control required>{{ p.body }}</textarea> 
+				class=form-control autofocus required>{{ p.body }}</textarea> 
 		</div>
 	</form>
 {% endblock %}

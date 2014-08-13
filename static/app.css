@@ -27,7 +27,7 @@ img {
 #post-body {
   border: none;
   outline: none;
-  font-size: 21px;
+  font-size: 29px;
   height: 93%;
   line-height: 1.2em;
   box-shadow: none;
@@ -36,4 +36,5 @@ img {
 em {
   font-weight: 100;
   color: #aaa;
+  text-shadow: 1px 0 1px;
 }
